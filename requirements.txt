@@ -52,6 +52,7 @@ python-barcode
 python-dotenv
 pytz
 pyrogram
+pyquery
 qrcode
 randomstuff.py
 regex
