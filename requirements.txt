@@ -51,6 +51,7 @@ pytube
 python-barcode
 python-dotenv
 pytz
+pyrogram
 qrcode
 randomstuff.py
 regex
