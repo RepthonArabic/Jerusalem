@@ -11,6 +11,7 @@ from validators.url import url
 
 class Config(object):
     LOGGER = True
+    PORT = os.environ.get("PORT", None)
     # MUST NEEDED VARS
     # set this value with your name
     ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
