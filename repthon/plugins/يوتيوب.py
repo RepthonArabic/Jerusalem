@@ -9,13 +9,8 @@ from time import time
 import requests
 from datetime import datetime
 
-try:
-    from pyquery import PyQuery as pq
-except ModuleNotFoundError:
-    os.system("pip3 install pyquery")
-    from pyquery import PyQuery as pq
 
-
+from pyquery import PyQuery as pq
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.tl import types
