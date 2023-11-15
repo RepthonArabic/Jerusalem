@@ -22,7 +22,8 @@ from repthon import BOTLOG, BOTLOG_CHATID, PM_LOGGER_GROUP_ID
 from ..Config import Config
 from ..core.logger import logging
 from ..core.session import zq_lo
-from ..core import web_server
+from ..core.server import web_server
+from aiohttp import web
 from ..helpers.utils import install_pip
 from ..helpers.utils.utils import runcmd
 from ..sql_helper.global_collection import (
