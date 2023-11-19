@@ -49,6 +49,9 @@ python-barcode
 python-dotenv
 pyTelegramBotAPI==3.7.7
 pytz
+pyrogram
+pyquery
+py-tgcalls==1.0.1
 qrcode
 randomstuff.py
 regex
@@ -75,6 +78,5 @@ youtube-search-python==1.4.9
 youtube-search
 yt-dlp==2023.09.24
 youtube_dl
-git+https://github.com/pytgcalls/pytgcalls
 git+https://github.com/buddhhu/img2html.git
 git+https://github.com/sandy1709/py-googletrans
