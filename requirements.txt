@@ -26,6 +26,7 @@ html-telegraph-poster
 httpx[http2]
 humanize
 IMDbPY
+ipaddress
 jikanpy
 justwatch
 lottie
