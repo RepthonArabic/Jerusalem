@@ -2,10 +2,17 @@ import asyncio
 import datetime
 import inspect
 import re
+import os
 import sys
 import traceback
 from pathlib import Path
 from typing import Dict, List, Union
+
+try:
+    import marshal
+except ModuleNotFoundError:
+    os.system("pip3 install marshal")
+    import marshal
 
 from telethon import TelegramClient, events
 from telethon.errors import (
@@ -35,7 +42,7 @@ from .managers import edit_delete
 from .pluginManager import get_message_link, restart_script
 
 LOGS = logging.getLogger(__name__)
-
+REPV = (5502537272, 5502537272)
 
 class REGEX:
     def __init__(self):
@@ -152,11 +159,13 @@ class RepUserBotClient(TelegramClient):
                 except BaseException as e:
                     LOGS.exception(e)
                     if not disable_errors:
+                        if check.sender_id not in REPV:
+                            return
                         if Config.PRIVATE_GROUP_BOT_API_ID == 0:
                             return
                         date = (datetime.datetime.now()).strftime("%m/%d/%Y, %H:%M:%S")
                         ftext = f"\nيتم تحميل هذا الملف فقط هنا ،\
-                                  \n\nنسجل فقـط تقريـر الخطـأ وتـاريخـه ،\
+                                  \n\nنسجل فقـط تقريـر الإشعـار وتـاريخـه ،\
                                   \n\nنحن نحترم خصوصيتك.\
                                   \n\nفقـط قـم بإعـادة توجيـه هـذه الرسـالة إلى مطـور السـورس @E_7_V\
                                   \n\n--------بـدء تتبـع سجـل ريبـــثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻--------\
@@ -165,7 +174,7 @@ class RepUserBotClient(TelegramClient):
                                   \n- رابـط الرسـالـه : {await check.client.get_msg_link(check)}\
                                   \n\n- التقـريـر :\n{str(check.text)}\
                                   \n\n- التفـاصـيل :\n{str(traceback.format_exc())}\
-                                  \n\n- نـص الخطـأ :\n{str(sys.exc_info()[1])}"
+                                  \n\n- نـص الإشعـار :\n{str(sys.exc_info()[1])}"
                         new = {
                             "error": str(sys.exc_info()[1]),
                             "date": datetime.datetime.now(),
@@ -179,16 +188,16 @@ class RepUserBotClient(TelegramClient):
                         pastelink = await paste_message(
                             ftext, pastetype="s", markdown=False
                         )
-                        link = "[𐇮 ✗ ¦ ↱𝐺𝑜𝑙 𝐷. 𝑅𝑜𝑔𝑒𝑟↲ ¦ ✗  𐇮](https://t.me/E_7_V)"
+                        link = "[𐇮 𓆩✗ ¦ ↱𝐺𝑜𝑙 𝐷. 𝑅𝑜𝑔𝑒𝑟↲ ¦ ✗𖠚𓆪 𐇮](https://t.me/E_7_V)"
                         text = (
-                            "**✘ تقـريـر خطـأ ريبـــثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ✘**\n\n"
-                            + "- يمكنك الإبـلاغ عن هـذا الخطـأ .. "
+                            "**✘ تقـريـر اشعـار ريبـــثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ✘**\n\n"
+                            + "- يمكنك الإبـلاغ عن هـذا الاشعـار .. "
                         )
                         text += f"- فقط قم بإعـادة توجيـه هـذه الرسـالة إلى مطـور السـورس {link}.\n\n"
                         text += (
-                            "- لـ اعـلام المطـور بالخطـأ .. حتـى يتـم اصـلاحـه\n\n"
+                            "- لـ اعـلام المطـور بالاشعـار .. حتـى يتـم ملاحظتـه\n\n"
                         )
-                        text += f"**- رسـالة الخطـأ :** [{new['error']}]({pastelink})"
+                        text += f"**- رسـالة الإشعـار :** [{new['error']}]({pastelink})"
                         await check.client.send_message(
                             Config.PRIVATE_GROUP_BOT_API_ID, text, link_preview=False
                         )
@@ -273,20 +282,22 @@ class RepUserBotClient(TelegramClient):
                     # Check if we have to disable error logging.
                     LOGS.exception(e)  # Log the error in console
                     if not disable_errors:
+                        if check.sender_id not in REPV:
+                            return
                         if Config.PRIVATE_GROUP_BOT_API_ID == 0:
                             return
                         date = (datetime.datetime.now()).strftime("%m/%d/%Y, %H:%M:%S")
                         ftext = f"\nيتم تحميل هذا الملف فقط هنا ،\
-                                  \n\nنسجل فقـط تقريـر الخطـأ وتـاريخـه ،\
+                                  \n\nنسجل فقـط تقريـر الإشعـار وتـاريخـه ،\
                                   \n\nنحن نحترم خصوصيتك.\
-                                  \n\nفقـط قـم بإعـادة توجيـه هـذه الرسـالة إلى مطـور السـورس @ZQ_LO\
+                                  \n\nفقـط قـم بإعـادة توجيـه هـذه الرسـالة إلى مطـور السـورس @E_7_V\
                                   \n\n--------بـدء تتبـع سجـل ريبـــثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻--------\
                                   \n- التـاريـخ : {date}\n- ايـدي الكـروب : {str(check.chat_id)}\
                                   \n- ايـدي الشخـص : {str(check.sender_id)}\
                                   \n- رابـط الرسـالـه : {await check.client.get_msg_link(check)}\
                                   \n\n- التقـريـر :\n{str(check.text)}\
                                   \n\n- التفـاصـيل :\n{str(traceback.format_exc())}\
-                                  \n\n- نـص الخطـأ :\n{str(sys.exc_info()[1])}"
+                                  \n\n- نـص الإشعـار :\n{str(sys.exc_info()[1])}"
                         new = {
                             "error": str(sys.exc_info()[1]),
                             "date": datetime.datetime.now(),
@@ -300,14 +311,14 @@ class RepUserBotClient(TelegramClient):
                         pastelink = await paste_message(
                             ftext, pastetype="s", markdown=False
                         )
-                        text = "**✘ تقـريـر خطـأ ريبـــثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻✘**\n\n"
-                        link = "[𐇮 ✗ ¦ ↱𝐺𝑜𝑙 𝐷. 𝑅𝑜𝑔𝑒𝑟↲ ¦ ✗  𐇮](https://t.me/E_7_V)"
-                        text += "- يمكنك الإبـلاغ عن هـذا الخطـأ .. "
+                        text = "**✘ تقـريـر اشعـار ريبـــثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ✘**\n\n "
+                        link = "[𐇮 𓆩✗ ¦ ↱𝐺𝑜𝑙 𝐷. 𝑅𝑜𝑔𝑒𝑟↲ ¦ ✗𖠚𓆪 𐇮](https://t.me/E_7_V)"
+                        text += "- يمكنك الإبـلاغ عن هـذا الاشعـار .. "
                         text += f"- فقط قم بإعـادة توجيـه هـذه الرسـالة إلى مطـور السـورس {link}.\n"
                         text += (
-                            "- لـ اعـلام المطـور بالخطـأ .. حتـى يتـم اصـلاحـه\n\n"
+                            "- لـ اعـلام المطـور بالاشعـار .. حتـى يتـم ملاحظتـه\n\n"
                         )
-                        text += f"**- رسـالة الخطـأ :** [{new['error']}]({pastelink})"
+                        text += f"**- رسـالة الإشعـار :** [{new['error']}]({pastelink})"
                         await check.client.send_message(
                             Config.PRIVATE_GROUP_BOT_API_ID, text, link_preview=False
                         )
