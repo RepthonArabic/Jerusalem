@@ -37,7 +37,7 @@ async def echo(event):
     try:
         addecho(chat_id, user_id, chat_name, user_name, user_username, chat_type)
     except Exception as e:
-        await edit_delete(zedubevent, f"**⎉╎خطـأ :**\n`{str(e)}`")
+        await edit_delete(repubevent, f"**⎉╎خطـأ :**\n`{str(e)}`")
     else:
         await edit_or_reply(
             repubevent,
