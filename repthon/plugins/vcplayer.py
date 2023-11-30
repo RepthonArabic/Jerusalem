@@ -1,4 +1,6 @@
-#الملف تابع لـ سورس ريبـــثون
+# تعريب وتحديث فريق ريبـــثون 
+# Repthon UsetBot T.me/Repthon
+# Devolper Baqir T.me/E_7_V
 import asyncio
 import logging
 
@@ -43,8 +45,8 @@ ALLOWED_USERS = set()
 
 
 @zq_lo.rep_cmd(
-    pattern="انضم ?(\S+)? ?(?:ك)? ?(\S+)?",
-    command=("انضم", plugin_category),
+    pattern="انضمام ?(\S+)? ?(?:ك)? ?(\S+)?",
+    command=("انضمام", plugin_category),
     info={
         "header": "لـ الانضمـام الى المحـادثه الصـوتيـه",
         "ملاحظـه": "يمكنك اضافة الامر (ك) للامر الاساسي للانضمام الى المحادثه ك قنـاة مع اخفاء هويتك",
@@ -52,16 +54,16 @@ ALLOWED_USERS = set()
             "ك": "للانضمام الى المحادثه ك قنـاة",
         },
         "الاستخـدام": [
-            "{tr}انضم",
-            "{tr}انضم + ايـدي المجمـوعـه",
-            "{tr}انضم ك (peer_id)",
-            "{tr}انضم (chat_id) ك (peer_id)",
+            "{tr}انضمام",
+            "{tr}انضمام + ايـدي المجمـوعـه",
+            "{tr}انضمام ك (peer_id)",
+            "{tr}انضمام (chat_id) ك (peer_id)",
         ],
         "مثــال :": [
-            "{tr}انضم",
-            "{tr}انضم -1005895485",
-            "{tr}انضم ك -1005895485",
-            "{tr}انضم -1005895485 ك -1005895485",
+            "{tr}انضمام",
+            "{tr}انضمام -1005895485",
+            "{tr}انضمام ك -1005895485",
+            "{tr}انضمام -1005895485 ك -1005895485",
         ],
     },
 )
@@ -84,7 +86,7 @@ async def joinVoicechat(event):
         )
 
     try:
-        vc_chat = await zq_lo.get_entity(chat)
+        vc_chat = await zedub.get_entity(chat)
     except Exception as e:
         return await edit_delete(event, f'**- خطـأ** : \n{e or "UNKNOWN CHAT"}')
 
@@ -104,12 +106,12 @@ async def joinVoicechat(event):
 
 
 @zq_lo.rep_cmd(
-    pattern="غادر",
-    command=("غادر", plugin_category),
+    pattern="خروج",
+    command=("خروج", plugin_category),
     info={
         "header": "لـ المغـادره من المحـادثه الصـوتيـه",
         "الاستخـدام": [
-            "{tr}غادر",
+            "{tr}خروج",
         ],
     },
 )
@@ -147,16 +149,16 @@ async def get_playlist(event):
                 rep += f"{num}-  `{item['title']}`\n"
             else:
                 rep += f"{num}- `{item['title']}`\n"
-        await edit_delete(event, f"**- قائمـة التشغيـل :**\n\n{zed}\n**Enjoy the show**")
+        await edit_delete(event, f"**- قائمـة التشغيـل :**\n\n{rep}\n**Enjoy the show**")
 
 
 @zq_lo.rep_cmd(
-    pattern="فيد ?(ف)? ?([\S ]*)?",
+    pattern="فيد ?(1)? ?([\S ]*)?",
     command=("فيد", plugin_category),
     info={
         "header": "تشغيـل مقـاطع الفيـديـو في المكـالمـات",
         "امـر اضافـي": {
-            "ف": "فرض تشغيـل المقطـع بالقـوة",
+            "1": "فرض تشغيـل المقطـع بالقـوة",
         },
         "الاستخـدام": [
             "{tr}فيد بالــرد ع فيـديـو",
@@ -166,14 +168,17 @@ async def get_playlist(event):
         "مثــال :": [
             "{tr}فيد بالـرد",
             "{tr}فيد https://www.youtube.com/watch?v=c05GBLT_Ds0",
-            "{tr}فيد ف https://www.youtube.com/watch?v=c05GBLT_Ds0",
+            "{tr}فيد 1 https://www.youtube.com/watch?v=c05GBLT_Ds0",
         ],
     },
 )
 async def play_video(event):
     "لـ تشغيـل مقـاطع الفيـديـو في المكـالمـات"
+    con = event.pattern_match.group(1).lower()
     flag = event.pattern_match.group(1)
     input_str = event.pattern_match.group(2)
+    if con == "فيديو":
+        return
     if input_str == "" and event.reply_to_msg_id:
         input_str = await tg_dl(event)
     if not input_str:
@@ -194,22 +199,22 @@ async def play_video(event):
 
 
 @zq_lo.rep_cmd(
-    pattern="شغل ?(ش)? ?([\S ]*)?",
+    pattern="شغل ?(1)? ?([\S ]*)?",
     command=("شغل", plugin_category),
     info={
         "header": "تشغيـل المقـاطع الصـوتيـه في المكـالمـات",
         "امـر اضافـي": {
-            "ش": "فرض تشغيـل المقطـع بالقـوة",
+            "1": "فرض تشغيـل المقطـع بالقـوة",
         },
         "الاستخـدام": [
             "{tr}شغل بالــرد ع مقطـع صـوتي",
             "{tr}شغل + رابـط",
-            "{tr}شغل ش + رابـط",
+            "{tr}شغل 1 + رابـط",
         ],
         "مثــال :": [
             "{tr}شغل بالـرد",
             "{tr}شغل https://www.youtube.com/watch?v=c05GBLT_Ds0",
-            "{tr}شغل ش https://www.youtube.com/watch?v=c05GBLT_Ds0",
+            "{tr}شغل 1 https://www.youtube.com/watch?v=c05GBLT_Ds0",
         ],
     },
 )
@@ -237,8 +242,8 @@ async def play_audio(event):
 
 
 @zq_lo.rep_cmd(
-    pattern="اسكت",
-    command=("اسكت", plugin_category),
+    pattern="توقف",
+    command=("توقف", plugin_category),
     info={
         "header": "لـ ايقـاف تشغيـل للمقطـع مؤقتـاً في المكـالمـه",
         "الاستخـدام": [
