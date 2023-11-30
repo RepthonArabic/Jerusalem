@@ -99,7 +99,7 @@ async def psu(event):
     await event.edit(help_string)
 
 
-@zq_lo.zed_cmd(
+@zq_lo.rep_cmd(
     pattern="cpu$",
     command=("cpu", plugin_category),
     info={
