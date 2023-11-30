@@ -86,7 +86,7 @@ async def joinVoicechat(event):
         )
 
     try:
-        vc_chat = await zedub.get_entity(chat)
+        vc_chat = await zq_lo.get_entity(chat)
     except Exception as e:
         return await edit_delete(event, f'**- خطـأ** : \n{e or "UNKNOWN CHAT"}')
 
