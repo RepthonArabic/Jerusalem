@@ -131,7 +131,7 @@ async def sysdetails(sysd):
     await _reputils.runcmd(cmd)
     neo = "neofetch/neofetch --off --color_blocks off --bold off --cpu_temp C \
                     --cpu_speed on --cpu_cores physical --kernel_shorthand off --stdout"
-    a, b, c, d = await _zedutils.runcmd(neo)
+    a, b, c, d = await _reputils.runcmd(neo)
     result = str(a) + str(b)
     await edit_or_reply(zedevent, f"**Neofetch Result:** `{result}`")
 
@@ -422,7 +422,7 @@ async def _(event):
 @zq_lo.rep_cmd(pattern="الاضافات$")
 async def _(event):
     cmd = "ls repthon/plugins"
-    o = (await _zedutils.runcmd(cmd))[0]
+    o = (await _reputils.runcmd(cmd))[0]
     OUTPUT = f"**⌔∮ [𝗦𝗢𝗨𝗥𝗖𝗘 𝗥𝗲𝗽𝘁𝗵𝗼𝗻](tg://need_update_for_some_feature/) الالاضافات:**\n{o}"
     await edit_or_reply(event, OUTPUT)
 
